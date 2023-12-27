@@ -1,0 +1,36 @@
+edition: 1.0.0
+name: component-test
+access: '{{ access }}'
+services:
+  ap-northeast-1-fc-stable-diffusion-plus:
+    component: fc
+    props:
+      region: ap-northeast-1
+      service:
+        logConfig:
+          enableRequestMetrics: true
+          enableInstanceMetrics: true
+          logBeginRule: DefaultRegex
+          project: aliyun-fc-ap-northeast-1-4054bacf-aca6-561c-90d3-1792732b85a9
+          logstore: function-log
+        role: acs:ram::1825689991697802:role/AliyunFCServerlessDevsRole
+        nasConfig:
+          userId: 0
+          groupId: 0
+          mountPoints:
+            - serverAddr: 256dc2481de-xol52.ap-northeast-1.nas.aliyuncs.com
+              nasDir: /fc-stable-diffusion-plus
+              fcDir: /mnt/auto
+            - serverAddr: 2525da49398-bsf52.ap-northeast-1.nas.aliyuncs.com
+              nasDir: /fc-stable-diffusion-plus2
+              fcDir: /mnt/auto/sd
+        description: stable-diffusion 部署到函数计算
+        internetAccess: true
+        vpcConfig:
+          securityGroupId: sg-6wehio1q5cyugya7g3y4
+          vpcId: vpc-6wedyra9qy1ji8gnkw3ic
+          vswitchIds:
+            - vsw-6wev4ratoj0tx5dnc2e8f
+        ossMountConfig:
+          mountPoints: []
+        name: fc-stable-diffusion-plus
